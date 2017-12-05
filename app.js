@@ -41,7 +41,7 @@ var luisAPIHostName = process.env.LuisAPIHostName || 'westeurope.api.cognitive.m
 
 console.log(luisAppId);
 console.log(luisAPIKey);
-const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisAppId + '?subscription-key=' + luisAPIKey;
+const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisAppId + '?subscription-key=' + luisAPIKey + "&verbose=true&timezoneOffset=0";
 console.log(LuisModelUrl);
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
