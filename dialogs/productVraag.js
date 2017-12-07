@@ -1,16 +1,23 @@
 var builder = require("botbuilder");
 
-function product_vraag (session, args) {
+var product_vraag = [
 
+    function (session, args) {
 
-    session.endDialog("Kan ik u nog ergens ander mee van dienst zijn?");
+        if (args.entities.length !== 0) {
 
+            var compute = builder.EntityRecognizer.findAllEntities(args.entities, 'compute');
 
-}
+            if(compute.length !== 0)
+            {
+                session.replaceDialog('compute', compute);
+                session.endDialog();
+            }
+        }
+    }
+]
+
 
 module.exports = product_vraag;
-
-
-
 
 

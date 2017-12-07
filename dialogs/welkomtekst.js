@@ -15,7 +15,7 @@ bot.on('conversationUpdate', function(message) {
 
 bot.dialog('/begin',
     function(session, args) {
-        session.send("Hallo, mijn naam is CASbot.");
-        session.send("Waarmee kan ik u van dienst zijn?");
+        session.send("Hallo, mijn naam is CASbot. Ik ben de Microsoft Azure bot van Copaco. Ik ben gemaakt met Azure technologie.");
+        session.send("Je kan mij van alles vragen over Azure, Microsoft en Copaco. Of typ help voor een rondleiding.");
         session.endDialog();
     });

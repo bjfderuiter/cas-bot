@@ -6,9 +6,13 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var bot = require('./bot').bot;
 var connector = require('./bot').connector;
+var recognizer = require('./bot').recognizer
 
 // Dialog inlcudes
 require('./dialogs/welkomtekst');
+require('./dialogs/computeDialog');
+
+var algemene_hulp = require('./dialogs/algemenehulp')
 var product_vraag = require('./dialogs/productVraag')
 var bedankt = require('./dialogs/bedankt');
 
@@ -29,27 +33,15 @@ server.post('/api/messages', connector.listen());
 * For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
 * ---------------------------------------------------------------------------------------- */
 
-
-
-// Make sure you add code to validate these fields
-var luisAppId = process.env.LuisAppId;
-var luisAPIKey = process.env.LuisAPIKey;
-var luisAPIHostName = process.env.LuisAPIHostName || 'westeurope.api.cognitive.microsoft.com';
-
-console.log(luisAppId);
-console.log(luisAPIKey);
-const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisAppId + '?subscription-key=' + luisAPIKey + "&verbose=true&timezoneOffset=0";
-console.log(LuisModelUrl);
-// Main dialog with LUIS
-var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 /*
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
+.matches('hulp_vraag', [algemene_hulp] )
 .matches('Bedankt', [bedankt])
-.matches('product_vraag', [product_vraag])
+.matches('product_vraag', product_vraag)
 .onDefault((session) => {
-    session.send('Sorry ik begreep niet \'%s\'.', session.message.text)
+    session.send('Op dit moment begrijp ik al heel veel. Hellaas weet ik niet wat je bedoelt met \'%s\'.', session.message.text)
 })
 
 
