@@ -6,9 +6,9 @@ var builder = require("botbuilder");
 
 
 // Main dialog with LUIS
-var recognizerMeerComPute = new builder.LuisRecognizer(LuisModelUrl);
+var recognizerCloudKans = new builder.LuisRecognizer(LuisModelUrl);
 
-var meerCompute = new builder.IntentDialog({ recognizers: [recognizer] })
+var cloudKansen = new builder.IntentDialog({ recognizers: [recognizer] })
     .matches('meer_vraag', [
         function (session, args){
             controleerComputeOptie(session, args);
@@ -41,7 +41,7 @@ var meerCompute = new builder.IntentDialog({ recognizers: [recognizer] })
             }
         })
 
-bot.dialog('compute',meerCompute);
+bot.dialog('cloudKansen', cloudKansen);
 
 var antwoordenCompute = function(compute){
 

@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "botbuilder": "^3.12.x",
+    "botbuilder-cognitiveservices": "^1.1.x",
     "restify": "^5.0.0"
   },
   "devDependencies": {

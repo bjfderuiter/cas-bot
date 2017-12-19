@@ -11,9 +11,10 @@ var product_vraag = [
             if(compute.length !== 0)
             {
                 session.replaceDialog('compute', compute);
-                session.endDialog();
             }
         }
+    },
+    function (session, results) {
     }
 ]
 

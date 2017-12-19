@@ -10,7 +10,7 @@ var connector = new builder.ChatConnector({
 });
 
 // Create your bot with a function to receive messages from the user
-var Bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(connector);
 
 // Make sure you add code to validate these fields
 var luisAppId = process.env.LuisAppId;
@@ -21,9 +21,10 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisApp
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
+bot.recognizer(new builder.LuisRecognizer(LuisModelUrl));
 
 module.exports = {
-    bot: Bot,
+    bot: bot,
     connector: connector,
     recognizer: recognizer,
     LuisModelUrl: LuisModelUrl
