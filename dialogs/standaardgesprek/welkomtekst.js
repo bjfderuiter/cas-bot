@@ -1,5 +1,5 @@
 // handle the proactive initiated dialog
-var bot = require('../bot').bot;
+var bot = require('../../bot').bot;
 var builder = require("botbuilder");
 
 

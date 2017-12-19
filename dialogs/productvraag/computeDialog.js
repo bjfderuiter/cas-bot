@@ -1,7 +1,7 @@
-var bot = require('../bot').bot;
-var LuisModelUrl = require('../bot').LuisModelUrl;
-var recognizer = require('../bot').recognizer;
-var conversation = require("./data");
+var bot = require('../../bot').bot;
+var LuisModelUrl = require('../../bot').LuisModelUrl;
+var recognizer = require('../../bot').recognizer;
+var conversation = require("./text/text_azure_producten");
 var builder = require("botbuilder");
 
 
@@ -30,14 +30,14 @@ var meerCompute = new builder.IntentDialog({ recognizers: [recognizer] })
             session.send("Je zit nu in de Azure Compute dialog. Vertel me over welke compute optie je meer informatie wilt of typ bedankt om terug naar het begin van dit gesprek te gaan.")
         }])
     .onBegin( function (session, args, next) {
-            if (args[0].entity === 'compute') {
+            if (args.entity === 'compute') {
 
                 session.send(conversation.compute.compute.algemeen);
                 vraagNaarComputeOpties(session)
             }
             else {
-                session.conversationData['computeOption'] = args[0].entity;
-                controleerComputeOptie(args[0].entity);
+                session.conversationData['computeOption'] = args.entity;
+                session.send(antwoordenCompute(args.resolution.values[0]));
             }
         })
 
@@ -45,14 +45,15 @@ bot.dialog('compute',meerCompute);
 
 var antwoordenCompute = function(compute){
 
-    entity = compute.resolution.values[0]
+    entity = compute.toLowerCase()
+
     if(entity === 'vm'){
         return conversation.compute.compute.algemeen;
     }
     else if(entity === 'app service'){
         return conversation.compute.computeservice.appService;
     }
-    else if(entity === 'Container Service'){
+    else if(entity === 'container service'){
         return conversation.compute.computeservice.containerservice;
     }
     else if(entity === 'functions'){
@@ -61,22 +62,22 @@ var antwoordenCompute = function(compute){
     else if(entity === 'batch'){
        return conversation.compute.computeservice.azureBatch;
     }
-    else if(entity === 'Service Fabric'){
+    else if(entity === 'service fabric'){
         return conversation.compute.computeservice.serviceFabric;
     }
-    else if(entity === 'Cloud Service'){
+    else if(entity === 'cloud service'){
         return conversation.compute.computeservice.cloudService;
     }
-    else if(entity === 'IaaS'){
+    else if(entity === 'iaas'){
         return conversation.compute.modellen.IaaS;
     }
-    else if(entity === 'CaaS'){
+    else if(entity === 'caas'){
         return conversation.compute.modellen.CaaS;
     }
-    else if(entity === 'PaaS'){
+    else if(entity === 'paas'){
         return conversation.compute.modellen.PaaS;
     }
-    else if(entity === 'FaaS'){
+    else if(entity === 'faas'){
         return conversation.compute.modellen.Faas;
     }
     else{
@@ -98,7 +99,7 @@ var controleerComputeOptie = function(session, args){
                 vraagNaarComputeOpties(session)
             }
             else {
-                session.send(antwoordenCompute(compute));
+                session.send(antwoordenCompute(compute.resolution.values[0]));
             }
         }
     }

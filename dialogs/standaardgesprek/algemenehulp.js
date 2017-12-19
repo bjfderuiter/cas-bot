@@ -10,8 +10,8 @@ function algemene_hulp (session, args) {
         new builder.HeroCard(session)
             .buttons([
                 builder.CardAction.imBack(session, "Wat is Microsoft?", "Microsoft"),
-                builder.CardAction.imBack(session, "Wat is Microsoft Azure?", "Azure"),
-                builder.CardAction.imBack(session, "Wie is Copaco?", "Copaco"),
+                builder.CardAction.imBack(session, "Wat is Azure?", "Azure"),
+                builder.CardAction.imBack(session, "Wat is Copaco?", "Copaco"),
             ])
     ]);
 

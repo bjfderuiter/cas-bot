@@ -12,14 +12,16 @@ var recognizer = require('./bot').recognizer
 
 
 // Dialog inlcudes
-require('./dialogs/welkomtekst');
-require('./dialogs/computeDialog');
-require('./dialogs/cloudkans');
+require('./dialogs/standaardgesprek/welkomtekst');
+require('./dialogs/productvraag/computeDialog');
+require('./dialogs/kansen/cloudkans');
+require('./dialogs/productvraag/merken');
 
-var algemene_hulp = require('./dialogs/algemenehulp')
-var product_vraag = require('./dialogs/productVraag')
-var bedankt = require('./dialogs/bedankt');
-var hoegaathet = require('./dialogs/hoegaathet')
+var algemene_hulp = require('./dialogs/standaardgesprek/algemenehulp')
+var product_vraag = require('./dialogs/productvraag/productVraag')
+var klant_identificeren = require('./dialogs/kansen/klanidentificeren')
+var bedankt = require('./dialogs/standaardgesprek/bedankt')
+var hoegaathet = require('./dialogs/standaardgesprek/hoegaathet')
 
 
 // Setup Restify Server
@@ -64,15 +66,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer, qnarecognizer
 
         }])
         .matches('HoeGaatHet', hoegaathet)
-        .matches('klant_identificeren'[function(session, args){
-            session.send('Hoewel de overstap naar de cloud voor vrijwel iedereen mogelijk is, zijn er bepaalde klanten waarvoor Microsoft Azure of Copaco Hyper-V Cloud extra relevant zijn. Denk hierbij aan klanten: ');
-            session.send("Met seizoenwerk of een piekbelasting zoals videostreams, een webwinkel of een RDS (Denk aan webshops rond de feestdagen of ticketverkoop rondom evenementen) ");
-            session.send("Die de bestaande servers willen vervangen of uitbreiden");
-            session.send("Met voornamelijk kortlopende projecten");
-            session.send("Die niet kunnen of willen investeren maar wel capaciteit nodig hebben");
-            session.send("Met een BYOD omgeving ");
-            session.send("Met behoefte aan een back-up en/of disaster recovery scenario");
-        }])
+        .matches('klant_identificeren', klant_identificeren)
         .onDefault((session) => {
     session.send('Op dit moment begrijp ik al heel veel. Hellaas weet ik niet wat je bedoelt met \'%s\'.', session.message.text)
 })

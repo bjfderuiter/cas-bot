@@ -1,7 +1,7 @@
-var bot = require('../bot').bot;
-var LuisModelUrl = require('../bot').LuisModelUrl;
-var recognizer = require('../bot').recognizer;
-var conversation = require("./data");
+var bot = require('../../bot').bot;
+var LuisModelUrl = require('../../bot').LuisModelUrl;
+var recognizer = require('../../bot').recognizer;
+var conversation = require("../productvraag/text/text_azure_producten");
 var builder = require("botbuilder");
 
 
