@@ -1,4 +1,4 @@
-
+var azure = require('azure-storage')
 var builder = require('botbuilder');
 
 // Create chat connector for communicating with the Bot Framework Service
@@ -29,3 +29,27 @@ module.exports = {
     recognizer: recognizer,
     LuisModelUrl: LuisModelUrl
 }
+
+var blobSvc = azure.createBlobService();
+
+
+bot.use({
+    receive: function (event, next) {
+        //console.log('***************************************************This is the recieving event yes yes ')
+        //console.log(event);
+
+        blobSvc.createBlockBlobFromText(process.env.logcontainer, Date.now() + '_recieve.json', JSON.stringify(event), function(error, result, responce) {
+
+        })
+        next();
+    },
+    send: function (event, next) {
+        //console.log('***************************************************This is the sending event yes yes ')
+        //console.log(event);
+
+        blobSvc.createBlockBlobFromText(process.env.logcontainer,Date.now() + '_send.json', JSON.stringify(event), function(error, result, responce) {
+
+        })
+        next();
+    }
+});

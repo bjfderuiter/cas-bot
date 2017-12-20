@@ -6,7 +6,8 @@
   "dependencies": {
     "botbuilder": "^3.13.x",
     "botbuilder-cognitiveservices": "^1.1.x",
-    "restify": "^5.0.0"
+    "restify": "^5.0.0",
+    "azure-storage": "^2.7.0"
   },
   "devDependencies": {
     "request": "^2.81.0",
